@@ -1,13 +1,9 @@
 import random
 import time
 
-ID_EPOCH = 1577836800
 
-
-pid = 1
-wid = 1
-
-#
+# pid = 1
+# wid = 1
 # current_time = int(time.time())
 # print(current_time)
 # starting_id = (current_time - ID_EPOCH) << 22
@@ -119,6 +115,8 @@ class IDGenerator:
 
 
 if __name__ == '__main__':
+    ID_EPOCH = 1577836800
+
     id_gen_1 = IDGenerator(ID_EPOCH)
 
     for j in range(4):
