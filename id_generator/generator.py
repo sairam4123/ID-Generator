@@ -2,45 +2,6 @@ import random
 import time
 
 
-# pid = 1
-# wid = 1
-# current_time = int(time.time())
-# print(current_time)
-# starting_id = (current_time - ID_EPOCH) << 22
-# print(starting_id, len(str(starting_id)))
-# starting_id = (starting_id << 17) | os.getpid()
-# print(starting_id, len(str(starting_id)))
-# starting_id = (starting_id << 12) | 65535
-# print(starting_id, len(str(starting_id)))
-# print(bin(starting_id), len(str(bin(starting_id))))
-# final_id = (((int(datetime.datetime.utcnow().timestamp() * 1000) << 22) - 16094394000000) | os.getpid() | 65535)
-# print(final_id)
-# print(((final_id // 1000) >> 22) + ID_EPOCH)
-# print((starting_id >> 22) + ID_EPOCH)
-# datetime.datetime.utcfromtimestamp(0)
-
-# 00000000000000000000000000000000000000000|00000000000000000000|0000000000000
-#              Timestamp                    ProcessID    Increment
-
-# print(pid)
-# current_time = int(time.time())
-# increment = 0
-# _process_id_bits = 5
-# _worker_id_bits = 5
-# _increment_bits = 12
-# timestamp_left_shift = _process_id_bits + _worker_id_bits + _increment_bits
-# process_id_left_shift = _worker_id_bits + _increment_bits
-# worker_id_left_shift = _increment_bits
-# #
-# starting_id = ((current_time - ID_EPOCH) << timestamp_left_shift) | (pid << process_id_left_shift) | (wid << worker_id_left_shift) | increment
-# print((current_time - ID_EPOCH))
-# print(datetime.datetime.utcfromtimestamp(((starting_id >> 22) + ID_EPOCH)) + datetime.timedelta(0, hours=5, minutes=30))
-# # print(increment, _pr, worker_id_bits, max_worker_id,  max_process_id, max_increment_id)
-# print((starting_id & 0x3E0000) >> 17)
-# print((starting_id & 0x1F000) >> 12)
-# print((starting_id & 0xFFF))
-#
-
 class IDProcessWorker:
     def __init__(self, worker_id, process_id, epoch, id_gen: 'IDGenerator', increment=0):
         self.worker_id = worker_id
@@ -115,6 +76,7 @@ class IDGenerator:
 
 
 if __name__ == '__main__':
+    import datetime
     ID_EPOCH = 1577836800
 
     id_gen_1 = IDGenerator(ID_EPOCH)
@@ -130,23 +92,9 @@ if __name__ == '__main__':
         id_array.append(created_id)
 
     print(len(set(id_array)), len(id_array))
-    #
-    # starting_id = id_gen_1.create_id()
-    # print(starting_id)
-    # print(datetime.datetime.utcfromtimestamp(int(((starting_id >> 22) + ID_EPOCH * 1000.0) / 1000.0)) + datetime.timedelta(hours=5, minutes=30))
-    # print((starting_id & 0x3E0000) >> 17)
-    # print((starting_id & 0x1F000) >> 12)
-    # print((starting_id & 0xFFF))
-    #
-    # print(bin(starting_id))
-    # # # print( + datetime.timedelta(0, hours=5, minutes=30))
-    # # starting_id = id_gen_1.create_id()
-    # # print(starting_id)
-    # # print(datetime.datetime.utcfromtimestamp(((starting_id >> 22) + ID_EPOCH)) + datetime.timedelta(0, hours=5, minutes=30))
-    # # starting_id = id_gen_1.create_id()
-    # # print(starting_id)
-    # # print(datetime.datetime.utcfromtimestamp(((starting_id >> 22) + ID_EPOCH)) + datetime.timedelta(0, hours=5, minutes=30))
-    #
-    # print((int(time.time() * 1000.0) - ID_EPOCH * 1000.0)/1000.0)  # 1000.0)
-    # # int(time.time() * 1000.0
-    # print(0b100110000111110101010100011110101111)
+    starting_id = id_gen_1.create_id()
+    print(starting_id)
+    print(datetime.datetime.utcfromtimestamp(int(((starting_id >> 22) + ID_EPOCH * 1000.0) / 1000.0)) + datetime.timedelta(hours=5, minutes=30))
+    print((starting_id & 0x3E0000) >> 17)
+    print((starting_id & 0x1F000) >> 12)
+    print((starting_id & 0xFFF))
